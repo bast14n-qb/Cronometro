@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cronómetro</title>
   <link rel="stylesheet" href="style.css" />
@@ -27,16 +27,70 @@
     </div>
 
     <div class="actions">
-      <button class="start" onclick="startTimer()">Iniciar</button>
+      <button class="start" id="startBtn">Iniciar</button>
       <button class="reset" onclick="resetTimer()">Reiniciar</button>
+      <button onclick="document.getElementById('alarmSound').play()">🔊 Probar sonido</button>
     </div>
   </div>
 
-  <button onclick="document.getElementById('alarmSound').play()">🔊 Probar sonido</button>
-
+  <!-- Audio -->
   <audio id="alarmSound" src="sonido.mp3" preload="auto"></audio>
-  
-  <script src="script.js"></script>
-  
+
+  <!-- Script -->
+  <script>
+    let time = 0;
+    let countdown;
+
+    const display = document.getElementById("display");
+    const sound = document.getElementById("alarmSound");
+
+    function setTimer(seconds) {
+      time = seconds;
+      updateDisplay(time);
+      clearInterval(countdown);
+    }
+
+    function setCustomTime() {
+      const custom = document.getElementById("custom").value;
+      if (custom && custom > 0) {
+        setTimer(parseInt(custom));
+      }
+    }
+
+    function updateDisplay(seconds) {
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      display.textContent = `${m}:${s}`;
+    }
+
+    function resetTimer() {
+      clearInterval(countdown);
+      time = 0;
+      updateDisplay(0);
+    }
+
+    function startTimer() {
+      if (time > 0) {
+        clearInterval(countdown);
+        countdown = setInterval(() => {
+          if (time > 0) {
+            time--;
+            updateDisplay(time);
+          } else {
+            clearInterval(countdown);
+            sound.play().catch(e => console.log("Error al reproducir el sonido:", e));
+            alert("¡Tiempo terminado!");
+          }
+        }, 1000);
+      }
+    }
+
+    // ✅ Desbloquea sonido en clic inicial
+    document.getElementById("startBtn").addEventListener("click", () => {
+      sound.play().then(() => sound.pause()).catch(() => {});
+      sound.currentTime = 0;
+      startTimer();
+    });
+  </script>
 </body>
 </html>
