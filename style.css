@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, sans-serif;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.time {
+  font-size: 4em;
+  margin: 20px 0;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.custom-time {
+  margin-bottom: 15px;
+}
+
+input[type="number"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  width: 100px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.start {
+  background-color: #28a745;
+  color: white;
+}
+
+.reset {
+  background-color: #dc3545;
+  color: white;
+  margin-left: 10px;
+}
