@@ -30,7 +30,8 @@ function startTimer() {
         updateDisplay(time);
       } else {
         clearInterval(countdown);
-        document.getElementById("alarmSound").play();
+        const sound = document.getElementById("alarmSound");
+        if (sound) sound.play().catch(e => console.log("Error al reproducir:", e));
         alert("¡Tiempo terminado!");
       }
     }, 1000);
